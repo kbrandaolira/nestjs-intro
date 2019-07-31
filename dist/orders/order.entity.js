@@ -9,36 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const customer_entity_1 = require("../customers/customer.entity");
 const typeorm_1 = require("typeorm");
-const order_entity_1 = require("../orders/order.entity");
-let Customer = class Customer {
+let Order = class Order {
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], Customer.prototype, "id", void 0);
+], Order.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column(),
-    __metadata("design:type", String)
-], Customer.prototype, "name", void 0);
+    __metadata("design:type", Date)
+], Order.prototype, "date", void 0);
 __decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], Customer.prototype, "cpf", void 0);
-__decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], Customer.prototype, "email", void 0);
-__decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], Customer.prototype, "password", void 0);
-__decorate([
-    typeorm_1.OneToMany(type => order_entity_1.Order, order => order.customer),
-    __metadata("design:type", Array)
-], Customer.prototype, "orders", void 0);
-Customer = __decorate([
+    typeorm_1.ManyToOne(type => customer_entity_1.Customer, customer => customer.orders),
+    __metadata("design:type", customer_entity_1.Customer)
+], Order.prototype, "customer", void 0);
+Order = __decorate([
     typeorm_1.Entity()
-], Customer);
-exports.Customer = Customer;
-//# sourceMappingURL=customer.entity.js.map
+], Order);
+exports.Order = Order;
+//# sourceMappingURL=order.entity.js.map
