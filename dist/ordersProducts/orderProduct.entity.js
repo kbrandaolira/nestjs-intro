@@ -9,29 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const customer_entity_1 = require("../customers/customer.entity");
 const typeorm_1 = require("typeorm");
-const orderProduct_entity_1 = require("../ordersProducts/orderProduct.entity");
-let Order = class Order {
+const order_entity_1 = require("../orders/order.entity");
+const product_entity_1 = require("../products/product.entity");
+let OrderProduct = class OrderProduct {
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], Order.prototype, "id", void 0);
+], OrderProduct.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column(),
-    __metadata("design:type", Date)
-], Order.prototype, "date", void 0);
+    __metadata("design:type", Number)
+], OrderProduct.prototype, "price", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => customer_entity_1.Customer, customer => customer.orders),
-    __metadata("design:type", customer_entity_1.Customer)
-], Order.prototype, "customer", void 0);
+    typeorm_1.ManyToOne(type => order_entity_1.Order, order => order.ordersProducts),
+    __metadata("design:type", order_entity_1.Order)
+], OrderProduct.prototype, "order", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => orderProduct_entity_1.OrderProduct, orderProduct => orderProduct.order),
-    __metadata("design:type", orderProduct_entity_1.OrderProduct)
-], Order.prototype, "ordersProducts", void 0);
-Order = __decorate([
-    typeorm_1.Entity()
-], Order);
-exports.Order = Order;
-//# sourceMappingURL=order.entity.js.map
+    typeorm_1.ManyToOne(type => product_entity_1.Product, product => product.ordersProducts),
+    __metadata("design:type", product_entity_1.Product)
+], OrderProduct.prototype, "product", void 0);
+OrderProduct = __decorate([
+    typeorm_1.Entity('order_product')
+], OrderProduct);
+exports.OrderProduct = OrderProduct;
+//# sourceMappingURL=orderProduct.entity.js.map

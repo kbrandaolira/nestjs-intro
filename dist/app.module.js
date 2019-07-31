@@ -10,6 +10,7 @@ const common_1 = require("@nestjs/common");
 const products_module_1 = require("./products/products.module");
 const customers_module_1 = require("./customers/customers.module");
 const orders_module_1 = require("./orders/orders.module");
+const ordersProducts_module_1 = require("./ordersProducts/ordersProducts.module");
 const typeorm_1 = require("@nestjs/typeorm");
 let AppModule = class AppModule {
 };
@@ -19,6 +20,7 @@ AppModule = __decorate([
             products_module_1.ProductsModule,
             customers_module_1.CustomersModule,
             orders_module_1.OrdersModule,
+            ordersProducts_module_1.OrdersProductsModule,
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
                 database: 'study',

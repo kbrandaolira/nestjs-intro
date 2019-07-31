@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ProductsModule } from './products/products.module';
 import { CustomersModule } from './customers/customers.module';
 import { OrdersModule } from './orders/orders.module';
+import { OrdersProductsModule } from './ordersProducts/ordersProducts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -9,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     ProductsModule,
     CustomersModule,
     OrdersModule,
+    OrdersProductsModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       database: 'study',
