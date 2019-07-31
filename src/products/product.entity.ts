@@ -13,4 +13,6 @@ export class Product {
 
   @Column('decimal', { precision: 5, scale: 2 })
   price: number;
+
+  
 }
