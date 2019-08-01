@@ -34,6 +34,17 @@ let CustomersService = class CustomersService {
             });
         });
     }
+    async loginAsync(dto) {
+        const customers = await this.customerRepository.find({
+            where: { email: dto.email },
+        });
+        if (!customers) {
+            throw new common_1.HttpException('Not Found', common_1.HttpStatus.NOT_FOUND);
+        }
+        else {
+            return await this.bcrypt.compareSync(dto.password, customers[0].password);
+        }
+    }
     getCustomers(dto) {
         return new Promise((resolve, reject) => {
             resolve(this.customerRepository.find({

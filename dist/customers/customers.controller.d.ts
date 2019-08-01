@@ -6,4 +6,5 @@ export declare class CustomersController {
     constructor(customerService: CustomersService);
     create(customer: Customer): Promise<any>;
     login(dto: CustomerDto): Promise<any>;
+    loginAsync(dto: CustomerDto): Promise<any>;
 }

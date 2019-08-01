@@ -7,6 +7,7 @@ export declare class CustomersService {
     private bcrypt;
     create(customer: Customer): Promise<Customer>;
     login(dto: CustomerDto): Promise<{}>;
+    loginAsync(dto: CustomerDto): Promise<any>;
     private getCustomers;
     private validatePassword;
 }

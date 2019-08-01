@@ -16,4 +16,9 @@ export class CustomersController {
   login(@Body() dto: CustomerDto): Promise<any> {
     return this.customerService.login(dto);
   }
+
+  @Post('/loginAsync')
+  loginAsync(@Body() dto: CustomerDto) {
+    return this.customerService.loginAsync(dto);
+  }
 }

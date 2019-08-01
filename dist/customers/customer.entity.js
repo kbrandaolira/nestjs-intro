@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const order_entity_1 = require("../orders/order.entity");
+const class_validator_1 = require("class-validator");
 let Customer = class Customer {
 };
 __decorate([
@@ -19,18 +20,22 @@ __decorate([
 ], Customer.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
     __metadata("design:type", String)
 ], Customer.prototype, "name", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
     __metadata("design:type", String)
 ], Customer.prototype, "cpf", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsEmail(),
     __metadata("design:type", String)
 ], Customer.prototype, "email", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
     __metadata("design:type", String)
 ], Customer.prototype, "password", void 0);
 __decorate([

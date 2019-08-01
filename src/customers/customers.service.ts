@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Customer } from './customer.entity';
 import { Repository } from 'typeorm';
@@ -14,7 +19,7 @@ export class CustomersService {
   private bcrypt = require('bcrypt');
 
   // create customer =)
-  create(customer: Customer): Promise<Customer> {
+  create(customer: Customer) {
     customer.password = this.bcrypt.hashSync(customer.password, 10);
     return this.customerRepository.save(customer);
   }
@@ -28,6 +33,18 @@ export class CustomersService {
         }
       });
     });
+  }
+
+  // login async await
+  async loginAsync(dto: CustomerDto) {
+    const customers = await this.customerRepository.find({
+      where: { email: dto.email },
+    });
+    if (!customers) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    } else {
+      return await this.bcrypt.compareSync(dto.password, customers[0].password);
+    }
   }
 
   // filter customer by dto
