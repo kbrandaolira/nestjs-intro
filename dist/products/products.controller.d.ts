@@ -4,8 +4,8 @@ export declare class ProductsController {
     private productsService;
     constructor(productsService: ProductsService);
     findAll(): Promise<Product[]>;
-    findOne(id: any): Promise<any>;
-    create(product: Product): Promise<any>;
-    update(id: any, product: Product): Promise<any>;
-    delete(id: any): Promise<any>;
+    findOne(id: any): Promise<Product>;
+    create(product: Product): Promise<Product>;
+    update(id: any, product: Product): Promise<import("typeorm").UpdateResult>;
+    delete(id: any): Promise<import("typeorm").DeleteResult>;
 }

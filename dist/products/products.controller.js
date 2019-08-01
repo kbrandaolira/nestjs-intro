@@ -19,20 +19,20 @@ let ProductsController = class ProductsController {
     constructor(productsService) {
         this.productsService = productsService;
     }
-    async findAll() {
+    findAll() {
         return this.productsService.findAll();
     }
-    async findOne(id) {
+    findOne(id) {
         return this.productsService.findOne(id);
     }
-    async create(product) {
+    create(product) {
         return this.productsService.create(product);
     }
-    async update(id, product) {
+    update(id, product) {
         product.id = Number(id);
         return this.productsService.update(product);
     }
-    async delete(id) {
+    delete(id) {
         return this.productsService.delete(id);
     }
 };
@@ -40,35 +40,35 @@ __decorate([
     common_1.Get(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "findAll", null);
 __decorate([
     common_1.Get(':id'),
     __param(0, common_1.Param('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "findOne", null);
 __decorate([
     common_1.Post(),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [product_entity_1.Product]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "create", null);
 __decorate([
     common_1.Put(':id'),
     __param(0, common_1.Param('id')), __param(1, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, product_entity_1.Product]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "update", null);
 __decorate([
     common_1.Delete(':id'),
     __param(0, common_1.Param('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "delete", null);
 ProductsController = __decorate([
     common_1.Controller('products'),
