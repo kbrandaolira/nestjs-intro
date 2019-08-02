@@ -9,7 +9,7 @@ export class OrdersService {
     @InjectRepository(Order) private orderRepository: Repository<Order>,
   ) {}
 
-  create(order: Order) {
-    this.orderRepository.save(order);
+  async create(order: Order): Promise<Order> {
+    return await this.orderRepository.save(order);
   }
 }

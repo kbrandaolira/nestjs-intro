@@ -28,7 +28,7 @@ __decorate([
 ], Order.prototype, "customer", void 0);
 __decorate([
     typeorm_1.OneToMany(type => orderProduct_entity_1.OrderProduct, orderProduct => orderProduct.order),
-    __metadata("design:type", orderProduct_entity_1.OrderProduct)
+    __metadata("design:type", Array)
 ], Order.prototype, "ordersProducts", void 0);
 Order = __decorate([
     typeorm_1.Entity()

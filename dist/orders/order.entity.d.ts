@@ -4,5 +4,5 @@ export declare class Order {
     id: number;
     date: Date;
     customer: Customer;
-    ordersProducts: OrderProduct;
+    ordersProducts: OrderProduct[];
 }

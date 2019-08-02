@@ -1,4 +1,11 @@
-import { Controller, Body, Post, Req } from '@nestjs/common';
+import {
+  Controller,
+  Body,
+  Post,
+  Req,
+  HttpStatus,
+  HttpCode,
+} from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { Customer } from './customer.entity';
 import { CustomerDto } from '../dto/customerDto';
@@ -8,17 +15,13 @@ export class CustomersController {
   constructor(private customerService: CustomersService) {}
 
   @Post()
+  @HttpCode(201)
   create(@Body() customer: Customer): Promise<any> {
     return this.customerService.create(customer);
   }
 
   @Post('/login')
-  login(@Body() dto: CustomerDto): Promise<any> {
+  login(@Body() dto: CustomerDto): Promise<string> {
     return this.customerService.login(dto);
-  }
-
-  @Post('/loginAsync')
-  loginAsync(@Body() dto: CustomerDto) {
-    return this.customerService.loginAsync(dto);
   }
 }

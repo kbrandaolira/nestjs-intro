@@ -17,5 +17,5 @@ export class Order {
   @ManyToOne(type => Customer, customer => customer.orders)
   customer: Customer;
   @OneToMany(type => OrderProduct, orderProduct => orderProduct.order)
-  ordersProducts: OrderProduct;
+  ordersProducts: OrderProduct[];
 }

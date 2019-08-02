@@ -1,13 +1,9 @@
-import {
-  Injectable,
-  NotFoundException,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Customer } from './customer.entity';
 import { Repository } from 'typeorm';
 import { CustomerDto } from '../dto/customerDto';
+import { Crypt } from '../utils/crypt';
 
 @Injectable()
 export class CustomersService {
@@ -16,52 +12,27 @@ export class CustomersService {
     private customerRepository: Repository<Customer>,
   ) {}
 
-  private bcrypt = require('bcrypt');
+  private crypt = new Crypt();
 
-  // create customer =)
   create(customer: Customer) {
-    customer.password = this.bcrypt.hashSync(customer.password, 10);
+    customer.password = this.crypt.execute(customer.password);
     return this.customerRepository.save(customer);
   }
 
-  // execute customer login
-  login(dto: CustomerDto) {
-    return new Promise((resolve, reject) => {
-      this.getCustomers(dto).then(customers => {
-        if (customers.length > 0) {
-          resolve(this.validatePassword(dto.password, customers[0].password));
-        }
-      });
-    });
-  }
-
-  // login async await
-  async loginAsync(dto: CustomerDto) {
-    const customers = await this.customerRepository.find({
-      where: { email: dto.email },
-    });
-    if (!customers) {
-      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+  async login(dto: CustomerDto): Promise<string | undefined> {
+    const customer = await this.findOne(dto);
+    if (customer && this.crypt.compare(dto.password, customer.password)) {
+      return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.';
     } else {
-      return await this.bcrypt.compareSync(dto.password, customers[0].password);
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
   }
 
-  // filter customer by dto
-  private getCustomers(dto: CustomerDto): Promise<any> {
-    return new Promise((resolve, reject) => {
-      resolve(
-        this.customerRepository.find({
-          where: { email: dto.email },
-        }),
-      );
-    });
-  }
-
-  // validate password :O
-  private validatePassword(password: string, encryptedPassword: string) {
-    return new Promise((resolve, reject) => {
-      resolve(this.bcrypt.compareSync(password, encryptedPassword));
+  private async findOne(dto: CustomerDto): Promise<Customer> {
+    return await this.customerRepository.findOne({
+      where: {
+        email: dto.email,
+      },
     });
   }
 }

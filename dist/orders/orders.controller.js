@@ -19,14 +19,16 @@ let OrdersController = class OrdersController {
     constructor(orderService) {
         this.orderService = orderService;
     }
-    create(order) { }
+    async create(order) {
+        return await this.orderService.create(order);
+    }
 };
 __decorate([
     common_1.Post('/orders'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [order_entity_1.Order]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], OrdersController.prototype, "create", null);
 OrdersController = __decorate([
     common_1.Controller('/orders'),

@@ -6,6 +6,9 @@ import { OrdersService } from './orders.service';
 export class OrdersController {
   constructor(private orderService: OrdersService) {}
 
+  // criar pedido com seu consumidor e itens
   @Post('/orders')
-  create(@Body() order: Order) {}
+  async create(@Body() order: Order): Promise<Order> {
+    return await this.orderService.create(order);
+  }
 }

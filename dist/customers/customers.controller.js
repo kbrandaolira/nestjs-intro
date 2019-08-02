@@ -26,12 +26,10 @@ let CustomersController = class CustomersController {
     login(dto) {
         return this.customerService.login(dto);
     }
-    loginAsync(dto) {
-        return this.customerService.loginAsync(dto);
-    }
 };
 __decorate([
     common_1.Post(),
+    common_1.HttpCode(201),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [customer_entity_1.Customer]),
@@ -44,13 +42,6 @@ __decorate([
     __metadata("design:paramtypes", [customerDto_1.CustomerDto]),
     __metadata("design:returntype", Promise)
 ], CustomersController.prototype, "login", null);
-__decorate([
-    common_1.Post('/loginAsync'),
-    __param(0, common_1.Body()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [customerDto_1.CustomerDto]),
-    __metadata("design:returntype", void 0)
-], CustomersController.prototype, "loginAsync", null);
 CustomersController = __decorate([
     common_1.Controller('customers'),
     __metadata("design:paramtypes", [customers_service_1.CustomersService])

@@ -4,10 +4,8 @@ import { CustomerDto } from '../dto/customerDto';
 export declare class CustomersService {
     private customerRepository;
     constructor(customerRepository: Repository<Customer>);
-    private bcrypt;
+    private crypt;
     create(customer: Customer): Promise<Customer>;
-    login(dto: CustomerDto): Promise<{}>;
-    loginAsync(dto: CustomerDto): Promise<any>;
-    private getCustomers;
-    private validatePassword;
+    login(dto: CustomerDto): Promise<string | undefined>;
+    private findOne;
 }

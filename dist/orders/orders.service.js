@@ -20,8 +20,8 @@ let OrdersService = class OrdersService {
     constructor(orderRepository) {
         this.orderRepository = orderRepository;
     }
-    create(order) {
-        this.orderRepository.save(order);
+    async create(order) {
+        return await this.orderRepository.save(order);
     }
 };
 OrdersService = __decorate([
