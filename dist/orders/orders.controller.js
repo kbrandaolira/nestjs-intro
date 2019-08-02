@@ -13,21 +13,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const order_entity_1 = require("./order.entity");
 const orders_service_1 = require("./orders.service");
+const orderDto_1 = require("../dto/orderDto");
 let OrdersController = class OrdersController {
     constructor(orderService) {
         this.orderService = orderService;
     }
-    async create(order) {
-        return await this.orderService.create(order);
+    async create(dto) {
+        return await this.orderService.create(dto);
     }
 };
 __decorate([
-    common_1.Post('/orders'),
+    common_1.Post(),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [order_entity_1.Order]),
+    __metadata("design:paramtypes", [orderDto_1.OrderDto]),
     __metadata("design:returntype", Promise)
 ], OrdersController.prototype, "create", null);
 OrdersController = __decorate([

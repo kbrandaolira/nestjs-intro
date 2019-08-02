@@ -22,23 +22,27 @@ let CustomersService = class CustomersService {
         this.customerRepository = customerRepository;
         this.crypt = new crypt_1.Crypt();
     }
-    create(customer) {
+    async create(customer) {
         customer.password = this.crypt.execute(customer.password);
-        return this.customerRepository.save(customer);
+        return await this.customerRepository.save(customer);
     }
-    async login(dto) {
-        const customer = await this.findOne(dto);
-        if (customer && this.crypt.compare(dto.password, customer.password)) {
+    async login(customer) {
+        const customerFound = await this.find(customer);
+        if (customerFound &&
+            this.crypt.compare(customer.password, customerFound.password)) {
             return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.';
         }
         else {
             throw new common_1.HttpException('Unauthorized', common_1.HttpStatus.UNAUTHORIZED);
         }
     }
-    async findOne(dto) {
+    async findOne(id) {
+        return await this.customerRepository.findOne(id);
+    }
+    async find(customer) {
         return await this.customerRepository.findOne({
             where: {
-                email: dto.email,
+                email: customer.email,
             },
         });
     }

@@ -16,18 +16,40 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const order_entity_1 = require("./order.entity");
+const products_service_1 = require("../products/products.service");
+const orderProduct_entity_1 = require("../ordersProducts/orderProduct.entity");
+const OrdersProducts_service_1 = require("../ordersProducts/OrdersProducts.service");
+const customers_service_1 = require("../customers/customers.service");
 let OrdersService = class OrdersService {
-    constructor(orderRepository) {
+    constructor(orderRepository, orderProductService, productService, customerService) {
         this.orderRepository = orderRepository;
+        this.orderProductService = orderProductService;
+        this.productService = productService;
+        this.customerService = customerService;
     }
-    async create(order) {
+    async create(dto) {
+        const ordersProducts = [];
+        for (const n of dto.productsIds) {
+            const product = await this.productService.findOne(n);
+            const orderProduct = new orderProduct_entity_1.OrderProduct();
+            orderProduct.price = product.price;
+            orderProduct.product = product;
+            ordersProducts.push(await this.orderProductService.save(orderProduct));
+        }
+        const order = new order_entity_1.Order();
+        order.date = new Date();
+        order.ordersProducts = ordersProducts;
+        order.customer = await this.customerService.findOne(dto.customerId);
         return await this.orderRepository.save(order);
     }
 };
 OrdersService = __decorate([
     common_1.Injectable(),
     __param(0, typeorm_1.InjectRepository(order_entity_1.Order)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        OrdersProducts_service_1.OrdersProductsService,
+        products_service_1.ProductsService,
+        customers_service_1.CustomersService])
 ], OrdersService);
 exports.OrdersService = OrdersService;
 //# sourceMappingURL=orders.service.js.map

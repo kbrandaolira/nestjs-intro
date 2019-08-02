@@ -13,33 +13,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const product_entity_1 = require("./product.entity");
+const orderProduct_entity_1 = require("./orderProduct.entity");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("@nestjs/typeorm");
-let ProductsService = class ProductsService {
-    constructor(productRepository) {
-        this.productRepository = productRepository;
+let OrdersProductsService = class OrdersProductsService {
+    constructor(orderProductRepository) {
+        this.orderProductRepository = orderProductRepository;
     }
-    async findAll() {
-        return await this.productRepository.find();
-    }
-    async findOne(id) {
-        return await this.productRepository.findOne(id);
-    }
-    async save(product) {
-        return await this.productRepository.save(product);
-    }
-    async update(product) {
-        return await this.productRepository.update(product.id, product);
-    }
-    async delete(id) {
-        return await this.productRepository.delete(id);
+    async save(orderProduct) {
+        return await this.orderProductRepository.save(orderProduct);
     }
 };
-ProductsService = __decorate([
+OrdersProductsService = __decorate([
     common_1.Injectable(),
-    __param(0, typeorm_2.InjectRepository(product_entity_1.Product)),
+    __param(0, typeorm_2.InjectRepository(orderProduct_entity_1.OrderProduct)),
     __metadata("design:paramtypes", [typeorm_1.Repository])
-], ProductsService);
-exports.ProductsService = ProductsService;
-//# sourceMappingURL=products.service.js.map
+], OrdersProductsService);
+exports.OrdersProductsService = OrdersProductsService;
+//# sourceMappingURL=OrdersProducts.service.js.map

@@ -19,7 +19,7 @@ __decorate([
     __metadata("design:type", Number)
 ], OrderProduct.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.Column('decimal', { precision: 5, scale: 2 }),
     __metadata("design:type", Number)
 ], OrderProduct.prototype, "price", void 0);
 __decorate([

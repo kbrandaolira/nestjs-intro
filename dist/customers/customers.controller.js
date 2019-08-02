@@ -15,16 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const customers_service_1 = require("./customers.service");
 const customer_entity_1 = require("./customer.entity");
-const customerDto_1 = require("../dto/customerDto");
 let CustomersController = class CustomersController {
     constructor(customerService) {
         this.customerService = customerService;
     }
-    create(customer) {
-        return this.customerService.create(customer);
+    async create(customer) {
+        return await this.customerService.create(customer);
     }
-    login(dto) {
-        return this.customerService.login(dto);
+    async login(customer) {
+        return await this.customerService.login(customer);
     }
 };
 __decorate([
@@ -39,7 +38,7 @@ __decorate([
     common_1.Post('/login'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [customerDto_1.CustomerDto]),
+    __metadata("design:paramtypes", [customer_entity_1.Customer]),
     __metadata("design:returntype", Promise)
 ], CustomersController.prototype, "login", null);
 CustomersController = __decorate([

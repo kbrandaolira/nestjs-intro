@@ -19,7 +19,7 @@ export class ProductsService {
     return await this.productRepository.findOne(id);
   }
 
-  async create(product: Product): Promise<Product> {
+  async save(product: Product): Promise<Product> {
     return await this.productRepository.save(product);
   }
 

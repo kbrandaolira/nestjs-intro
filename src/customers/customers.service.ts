@@ -2,7 +2,6 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Customer } from './customer.entity';
 import { Repository } from 'typeorm';
-import { CustomerDto } from '../dto/customerDto';
 import { Crypt } from '../utils/crypt';
 
 @Injectable()
@@ -14,24 +13,32 @@ export class CustomersService {
 
   private crypt = new Crypt();
 
-  create(customer: Customer) {
+  async create(customer: Customer) {
     customer.password = this.crypt.execute(customer.password);
-    return this.customerRepository.save(customer);
+    return await this.customerRepository.save(customer);
   }
 
-  async login(dto: CustomerDto): Promise<string | undefined> {
-    const customer = await this.findOne(dto);
-    if (customer && this.crypt.compare(dto.password, customer.password)) {
+  async login(customer: Customer): Promise<string | undefined> {
+    const customerFound = await this.find(customer);
+    if (
+      customerFound &&
+      this.crypt.compare(customer.password, customerFound.password)
+    ) {
+      // Adicionar JWT
       return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.';
     } else {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
   }
 
-  private async findOne(dto: CustomerDto): Promise<Customer> {
+  async findOne(id: number): Promise<Customer> {
+    return await this.customerRepository.findOne(id);
+  }
+
+  async find(customer: Customer): Promise<Customer> {
     return await this.customerRepository.findOne({
       where: {
-        email: dto.email,
+        email: customer.email,
       },
     });
   }
